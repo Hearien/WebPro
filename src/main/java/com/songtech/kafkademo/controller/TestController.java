@@ -170,6 +170,7 @@ public class TestController {
     @RequestMapping(value = "unsub", method = RequestMethod.POST)
     public String unsub(@ApiParam(value = "参数") @RequestBody String data){
         try{
+
             return "success";
         }catch (Exception e){
             e.printStackTrace();
