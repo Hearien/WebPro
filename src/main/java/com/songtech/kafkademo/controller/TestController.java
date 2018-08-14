@@ -170,15 +170,6 @@ public class TestController {
     @RequestMapping(value = "unsub", method = RequestMethod.POST)
     public String unsub(@ApiParam(value = "参数") @RequestBody String data){
         try{
-//            Properties props= new Properties ();
-//            props.put ("bootstrap.servers","127.0.0.1:9092");
-//            props.put ("group.id","test");
-//            props.put ("client.id","test");
-//            props.put ("key.deserializer","org.apache.kafka.common.serialization.StringDeserializer") ;
-//            props.put ("value.deserializer","org.apache.kafka.common.serialization.StringDeserializer") ;
-//            KafkaConsumer<String , String> consumer= new KafkaConsumer<> (props);
-//            consumerService.consum(data,consumer);
-            consumerService.unSubscribe(data,consumerFactory);
             return "success";
         }catch (Exception e){
             e.printStackTrace();
