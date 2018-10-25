@@ -48,7 +48,7 @@
 
 	<build>
 		<filters>
-			<filter>src/main/resources/application-${activatedProperties}.properties</filter>
+			<filter>../env/${activatedProperties}.properties</filter>
 		</filters>
 		<resources>
 			<resource>
