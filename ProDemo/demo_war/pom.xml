@@ -47,9 +47,8 @@
 	</profiles>
 
 	<build>
-		<finalName>${project.artifactId}</finalName>
 		<filters>
-			<filter>application-${activatedProperties}.properties</filter>
+			<filter>src/main/resources/application-${activatedProperties}.properties</filter>
 		</filters>
 		<resources>
 			<resource>
