@@ -6,7 +6,7 @@
 	<groupId>com.hearien</groupId>
 	<artifactId>demo_war</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<packaging>war</packaging>
+	<packaging>pom</packaging>
 
 	<name>DemoWar</name>
 	<description>Demo project for Spring Boot</description>
@@ -15,7 +15,6 @@
 		<groupId>com.hearien</groupId>
 		<artifactId>prodemo</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
-		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 
 	<properties>
@@ -23,6 +22,7 @@
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
 	</properties>
+
 
 	<dependencies>
 
@@ -32,7 +32,7 @@
 		<profile>
 			<id>dev</id>
 			<properties>
-				<activatedProperties>dev</activatedProperties>
+				<activated>dev</activated>
 			</properties>
 			<activation>
 				<activeByDefault>true</activeByDefault>
@@ -41,15 +41,12 @@
 		<profile>
 			<id>pro</id>
 			<properties>
-				<activatedProperties>pro</activatedProperties>
+				<activated>pro</activated>
 			</properties>
 		</profile>
 	</profiles>
 
 	<build>
-		<filters>
-			<filter>../env/${activatedProperties}.properties</filter>
-		</filters>
 		<resources>
 			<resource>
 				<directory>src/main/resources</directory>

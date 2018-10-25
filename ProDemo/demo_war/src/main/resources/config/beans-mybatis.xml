@@ -51,11 +51,23 @@
     <bean id="sqlSessionFactorySlave" class="org.mybatis.spring.SqlSessionFactoryBean">
         <property name="configLocation" value="classpath:config/mybatis-config.xml" />
         <property name="dataSource" ref="dataSource" />
+        <property name="typeAliasesPackage"
+                  value="com.hearien.demo.**.model"/>
+        <property name="mapperLocations">
+            <value>classpath:mapper/*.xml</value>
+        </property>
+    </bean>
+
+    <!-- 配置扫描Mapper接口的包路径 -->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"/>
+        <property name="basePackage" value="com.hearin.demo.**.dao"/>
+        <property name="annotationClass" value="org.apache.ibatis.annotations.Mapper"/>
     </bean>
 
     <!-- scan for mappers and let them be autowired -->
     <bean class="tk.mybatis.spring.mapper.MapperScannerConfigurer">
-        <property name="basePackage" value="com.hearien.demo.**.model.dao" />
+        <property name="basePackage" value="com.hearien.demo.**.dao" />
         <property name="properties">
             <value>
                 mappers=tk.mybatis.mapper.common.Mapper
