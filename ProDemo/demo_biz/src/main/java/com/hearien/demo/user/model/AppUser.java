@@ -1,9 +1,11 @@
 package com.hearien.demo.user.model;
 
+import com.hearien.demo.common.BaseEntity;
+
 import java.util.Date;
 import javax.persistence.*;
 
-public class AppUser {
+public class AppUser extends BaseEntity {
     @Id
     @Column(name = "appUserID")
     private Integer appuserid;

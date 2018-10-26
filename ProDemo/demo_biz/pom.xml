@@ -28,7 +28,7 @@
 		<dependency>
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
-			<version>5.1.46</version>
+			<version>5.1.29</version>
 		</dependency>
 
 	</dependencies>
@@ -42,7 +42,12 @@
 				</includes>
 			</resource>
 			<resource>
-				<directory>src/main/resources</directory>
+				<directory>src/main/resource</directory>
+				<includes>
+					<include>**/*.properties</include>
+					<include>**/*.xml</include>
+				</includes>
+				<filtering>false</filtering>
 			</resource>
 		</resources>
 		<plugins>
