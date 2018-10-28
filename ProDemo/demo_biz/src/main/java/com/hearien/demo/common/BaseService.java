@@ -13,7 +13,7 @@ import java.util.List;
  * @Author WangHaiyang
  * @Date 2018/10/25 11:37
  **/
-public abstract class BaseService<D extends Mapper<T>,T extends BaseEntity> {
+public abstract class BaseService<D extends Mapper<T>,T/* extends BaseEntity*/> {
 
     @Autowired
     private D dao;
@@ -21,7 +21,7 @@ public abstract class BaseService<D extends Mapper<T>,T extends BaseEntity> {
     private SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     public boolean insertSeletive(T entity){
-        entity.setCreateTime(sdf.format(new Date()));
+        //entity.setCreateTime(sdf.format(new Date()));
         return dao.insertSelective(entity)>0?true:false;
     }
 
@@ -30,7 +30,7 @@ public abstract class BaseService<D extends Mapper<T>,T extends BaseEntity> {
     }
 
     public boolean updateSelective(T entity){
-        entity.setUpdateId(sdf.format(new Date()));
+        //entity.setUpdateId(sdf.format(new Date()));
         return dao.updateByPrimaryKeySelective(entity)>0?true:false;
     }
 

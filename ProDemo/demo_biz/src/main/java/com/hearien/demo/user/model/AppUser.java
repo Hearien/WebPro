@@ -5,7 +5,9 @@ import com.hearien.demo.common.BaseEntity;
 import java.util.Date;
 import javax.persistence.*;
 
-public class AppUser extends BaseEntity {
+@Entity
+@Table(name = "APPUSER")
+public class AppUser{
     @Id
     @Column(name = "appUserID")
     private Integer appuserid;
