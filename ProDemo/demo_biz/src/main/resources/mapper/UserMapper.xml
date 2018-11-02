@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hearien.demo.user.dao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.hearien.demo.user.model.User" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="role_name" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <!--<collection property="list" resultMap="roleMap"></collection>-->
+  </resultMap>
+  <!--<resultMap id="roleMap" type="com.hearien.demo.role.model.Role">
+    <id column="id" property="id" jdbcType="INTEGER" />
+    <result column="role_name" property="role_name" jdbcType="VARCHAR" />
+  </resultMap>-->
+  <sql id="Base_Column_List" >
+    <!--
+      WARNING - @mbg.generated
+    -->
+    appUserID, birth, contactAddress, email, flag, gender, gesturePwd, hasSetUserName, 
+    idNumber, integral, loginPassword, nickName, phone, realName, registIP, registTime, 
+    registType, state, updateTime, userLogo, userName, verifyState, vipType
+  </sql>
+</mapper>
