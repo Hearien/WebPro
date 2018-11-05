@@ -10,8 +10,8 @@ import springfox.documentation.swagger2.annotations.EnableSwagger2;
 @SpringBootApplication
 @ImportResource({"classpath:applicationContext.xml"})
 @EnableCaching  //开启缓存功能
-@EnableScheduling //开启计划任务支持
-@EnableSwagger2
+//@EnableScheduling //开启计划任务支持
+//@EnableSwagger2
 public class DemoWarApplication {
 
 	public static void main(String[] args) {

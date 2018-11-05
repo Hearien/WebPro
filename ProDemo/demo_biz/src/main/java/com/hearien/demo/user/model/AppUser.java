@@ -1,26 +1,31 @@
 package com.hearien.demo.user.model;
 
-import com.hearien.demo.common.BaseEntity;
+import io.swagger.annotations.ApiModel;
 
+import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.*;
 
 @Entity
 @Table(name = "APPUSER")
-public class AppUser{
+public class AppUser implements Serializable{
     @Id
     @Column(name = "appUserID")
     private Integer appuserid;
 
+    @Column(name = "birth")
     private String birth;
 
     @Column(name = "contactAddress")
     private String contactaddress;
 
+    @Column(name = "email")
     private String email;
 
+    @Column(name = "flag")
     private String flag;
 
+    @Column(name = "gender")
     private String gender;
 
     @Column(name = "gesturePwd")
@@ -32,6 +37,7 @@ public class AppUser{
     @Column(name = "idNumber")
     private String idnumber;
 
+    @Column(name = "integral")
     private Integer integral;
 
     @Column(name = "loginPassword")
@@ -40,6 +46,7 @@ public class AppUser{
     @Column(name = "nickName")
     private String nickname;
 
+    @Column(name = "phone")
     private String phone;
 
     @Column(name = "realName")
@@ -54,6 +61,7 @@ public class AppUser{
     @Column(name = "registType")
     private String registtype;
 
+    @Column(name = "state")
     private String state;
 
     @Column(name = "updateTime")

@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+@Api(tags="HELLO用户")
 @RestController
-@Api(value="Authentication API", description="Authenticate user using authorization token.")
 @RequestMapping("api/user")
 public class HelloWorldRestController {
   
@@ -25,7 +25,7 @@ public class HelloWorldRestController {
       
     //-------------------Retrieve All Users--------------------------------------------------------
 
-//    @PreAuthorize("hasRole('ROLE_CLIENT')")
+//    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @ApiOperation(value = "获取用户列表", notes = "获取用户列表")
     @ApiResponses(value = {
             @ApiResponse(code = 200, message = "Success"),

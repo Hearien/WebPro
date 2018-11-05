@@ -12,7 +12,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.crypto.password.Md4PasswordEncoder;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
 import org.springframework.security.oauth2.provider.ClientDetailsService;
 import org.springframework.security.oauth2.provider.approval.ApprovalStore;
 import org.springframework.security.oauth2.provider.approval.TokenApprovalStore;
@@ -30,7 +31,7 @@ import org.springframework.security.oauth2.provider.token.store.redis.RedisToken
  */
 @Configuration
 @EnableWebSecurity(debug = true)
-@EnableGlobalMethodSecurity(prePostEnabled = true)
+@EnableGlobalMethodSecurity(prePostEnabled = true)//启用方法级的权限认证
 @Order(SecurityProperties.BASIC_AUTH_ORDER)
 public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
@@ -48,16 +49,21 @@ public class OAuth2SecurityConfiguration extends WebSecurityConfigurerAdapter {
     public void globalUserDetails(AuthenticationManagerBuilder auth) throws Exception {
         auth
 			.userDetailsService(myUserDetailsService())
-			.passwordEncoder(new Md4PasswordEncoder());
+			.passwordEncoder(new BCryptPasswordEncoder());
     }
 
+	@Bean
+	public static NoOpPasswordEncoder passwordEncoder() {
+		return (NoOpPasswordEncoder) NoOpPasswordEncoder.getInstance();
+	}
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
 		http
 		.anonymous().disable()
 	  	.authorizeRequests()
-	  	.antMatchers("/oauth/token").permitAll();
+	  	.antMatchers("/oauth/token")//允许访问
+				.permitAll();
     }
 
     @Override

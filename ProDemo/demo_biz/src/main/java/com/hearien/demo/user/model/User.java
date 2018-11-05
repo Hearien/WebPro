@@ -1,6 +1,5 @@
 package com.hearien.demo.user.model;
 
-import com.hearien.demo.role.model.Role;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -18,7 +17,7 @@ import static javax.persistence.GenerationType.IDENTITY;
 public class User implements Serializable {
     @Id
     @Column(name = "id")
-    private int id;
+    private Integer id;
     @Column(name = "username")
     private String username;
     @Column(name = "password")
@@ -33,11 +32,11 @@ public class User implements Serializable {
         this.list = list;
     }*/
 
-    public int getId() {
+    public Integer getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Integer id) {
         this.id = id;
     }
 

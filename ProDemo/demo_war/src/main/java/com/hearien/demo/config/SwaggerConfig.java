@@ -1,10 +1,12 @@
 package com.hearien.demo.config;
 
+import com.google.common.base.Predicate;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
-import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
+import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -16,9 +18,7 @@ import springfox.documentation.swagger.web.ApiKeyVehicle;
 import springfox.documentation.swagger.web.SecurityConfiguration;
 import springfox.documentation.swagger2.annotations.EnableSwagger2;
 
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
+import java.util.*;
 
 import static org.hibernate.validator.internal.util.CollectionHelper.newArrayList;
 
@@ -30,7 +30,6 @@ import static org.hibernate.validator.internal.util.CollectionHelper.newArrayLis
 @Configuration
 @EnableSwagger2
 public class SwaggerConfig {
-
 
     @Value("${config.oauth2.accessTokenUri}")
     private String accessTokenUri;
@@ -50,19 +49,43 @@ public class SwaggerConfig {
      */
     @Bean
     public Docket productApi() {
-
-
+        Set<String> set = new HashSet<>();
+        set.add("http");
+        set.add("https");
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.basePackage("com.hearien.demo.controller"))
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
                 .paths(PathSelectors.any())
                 .build()
+                .host("127.0.0.1:8088/swagger-ui.html")
+                .protocols(set)//配置请求协议方式
+                .groupName("demo组")//配置Select a spec
                 .securityContexts(Collections.singletonList(securityContext()))
                 .securitySchemes(Arrays.asList(securitySchema()/*, apiKey(), apiCookieKey()*/))
                 .apiInfo(apiInfo());
-
-
     }
+
+    /**
+     * 配置第二个api文档
+     * @return
+     */
+    /*@Bean
+    public Docket productApi2() {
+        Set<String> set = new HashSet<>();
+        set.add("http");
+        set.add("https");
+        return new Docket(DocumentationType.SWAGGER_2)
+                .select()
+                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+                .paths(PathSelectors.any())
+                .build()
+                .host("127.0.0.1:8088/swagger-ui.html")
+                .protocols(set)//配置请求协议方式
+                .groupName("demo组")//配置Select a spec
+                .securityContexts(Collections.singletonList(securityContext()))
+                .securitySchemes(Arrays.asList(securitySchema()*//*, apiKey(), apiCookieKey()*//*))
+                .apiInfo(apiInfo());
+    }*/
 
     /*@Bean
      public SecurityScheme apiKey() {
@@ -92,8 +115,6 @@ public class SwaggerConfig {
                 .build();
     }
 
-
-
     private List<SecurityReference> defaultAuth() {
 
         final AuthorizationScope[] authorizationScopes = new AuthorizationScope[3];
@@ -107,7 +128,7 @@ public class SwaggerConfig {
     @Bean
     public SecurityConfiguration security() {
         return new SecurityConfiguration
-                (clientId, secret, realm, "", "access_token", ApiKeyVehicle.HEADER, HttpHeaders.AUTHORIZATION,"");
+                (clientId, secret, realm, "demo", "access_token", ApiKeyVehicle.HEADER, HttpHeaders.AUTHORIZATION,"");
     }
 
 
@@ -116,14 +137,13 @@ public class SwaggerConfig {
      * @return ApiInf
      */
     private ApiInfo apiInfo() {
-        return new ApiInfoBuilder().title("Authentication API").description("")
+        return new ApiInfoBuilder().title("DEMO API").description("")
                 .termsOfServiceUrl("https://www.example.com/api")
-                .contact(new Contact("Developers", "https://projects.spring.io/spring-boot/", ""))
+                .contact(new Contact("Developers", "https://hearien.github.io", "ysilence@qq.com"))
                 .license("Open Source")
-                .licenseUrl("\"https://www.apache.org/licenses/LICENSE-2.0")
+                .licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
                 .version("1.0.0")
                 .build();
-
     }
 
 }
