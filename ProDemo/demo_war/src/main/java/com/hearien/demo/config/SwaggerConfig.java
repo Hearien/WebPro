@@ -1,12 +1,11 @@
 package com.hearien.demo.config;
 
-import com.google.common.base.Predicate;
+import com.google.common.collect.Sets;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpHeaders;
-import springfox.documentation.RequestHandler;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -49,16 +48,14 @@ public class SwaggerConfig {
      */
     @Bean
     public Docket productApi() {
-        Set<String> set = new HashSet<>();
-        set.add("http");
-        set.add("https");
         return new Docket(DocumentationType.SWAGGER_2)
                 .select()
-                .apis(RequestHandlerSelectors.withMethodAnnotation(ApiOperation.class))
+                //.apis(RequestHandlerSelectors.basePackage("com.hearien.demo.controller"))
+                .apis(RequestHandlerSelectors.any())
                 .paths(PathSelectors.any())
                 .build()
-                .host("127.0.0.1:8088/swagger-ui.html")
-                .protocols(set)//配置请求协议方式
+                //.host("127.0.0.1:8088/swagger-ui.html")
+                .protocols(Sets.newHashSet("https","http"))//配置请求协议方式
                 .groupName("demo组")//配置Select a spec
                 .securityContexts(Collections.singletonList(securityContext()))
                 .securitySchemes(Arrays.asList(securitySchema()/*, apiKey(), apiCookieKey()*/))
