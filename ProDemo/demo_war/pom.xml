@@ -38,11 +38,6 @@
 			<artifactId>demo_biz</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
-		<!--<dependency>
-			<groupId>com.hearien</groupId>
-			<artifactId>oauth2</artifactId>
-			<version>0.0.1-SNAPSHOT</version>
-		</dependency>-->
 
 
 		<dependency>
