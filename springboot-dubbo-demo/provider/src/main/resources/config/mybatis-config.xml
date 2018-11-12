@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+        PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+
+    <settings>
+        <!-- Globally enables or disables any caches configured in any mapper under this configuration -->
+        <setting name="cacheEnabled" value="true"/>
+        <!-- Sets the number of seconds the driver will wait for a response from the database -->
+        <setting name="defaultStatementTimeout" value="3000"/>
+        <!-- Enables automatic mapping from classic database column names A_COLUMN to camel case classic Java property names aColumn -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+        <!-- Allows JDBC support for generated keys. A compatible driver is required.
+        This setting forces generated keys to be used if set to true,
+         as some drivers deny compatibility but still work -->
+        <setting name="useGeneratedKeys" value="true"/>
+        <!--mybstis log-->
+        <setting name="logPrefix" value="sqlLog." />
+        <!-- 允许使用列标签代替列名 -->
+        <setting name="useColumnLabel" value="true"/>
+        <!-- 给予被嵌套的resultMap以字段-属性的映射支持 FULL,PARTIAL -->
+        <setting name="autoMappingBehavior" value="PARTIAL"/>
+        <!-- Allows using RowBounds on nested statements -->
+        <setting name="safeRowBoundsEnabled" value="false"/>
+
+        <!-- Enables automatic mapping from classic database column names A_COLUMN to camel case classic Java property names aColumn. -->
+        <setting name="mapUnderscoreToCamelCase" value="true"/>
+
+        <!-- MyBatis uses local cache to prevent circular references and speed up repeated nested queries. By default (SESSION) all queries executed during a session are cached. If localCacheScope=STATEMENT
+            local session will be used just for statement execution, no data will be shared between two different calls to the same SqlSession. -->
+        <setting name="localCacheScope" value="SESSION"/>
+
+        <!-- Specifies the JDBC type for null values when no specific JDBC type was provided for the parameter. Some drivers require specifying the column JDBC type but others work with generic values
+            like NULL, VARCHAR or OTHER. -->
+        <setting name="jdbcTypeForNull" value="OTHER"/>
+
+        <!-- Specifies which Object's methods trigger a lazy load -->
+        <setting name="lazyLoadTriggerMethods" value="equals,clone,hashCode,toString"/>
+
+        <!-- 设置关联对象加载的形态，此处为按需加载字段(加载字段由SQL指 定)，不会加载关联表的所有字段，以提高性能 -->
+        <setting name="aggressiveLazyLoading" value="true"/>
+        <setting name="logImpl" value="STDOUT_LOGGING" />
+    </settings>
+
+    <!-- Continue going here -->
+
+</configuration>
