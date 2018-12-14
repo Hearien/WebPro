@@ -1,0 +1,38 @@
+syntax="proto2";
+
+package com.hearien.protobuf;
+
+option optimize_for=SPEED;
+option java_package="com.hearien.six";
+option java_outer_classname="DataInfo";
+
+message MyMsg{
+    enum DataType{
+        StuType = 1;
+        TeaType = 2;
+        LeaType = 3;
+    }
+    required DataType data_type = 1;
+    oneof dataBody{
+        Student student = 2;
+        Teacher teacher = 3;
+        Leader leader = 4;
+    }
+}
+
+message Student{
+    optional string name = 1;
+    optional int32 age = 2;
+    optional string address = 3;
+}
+
+message Teacher{
+     optional string name = 1;
+     optional string grade = 2;
+}
+
+message Leader{
+    optional string name = 1;
+    optional string school = 2;
+}
+

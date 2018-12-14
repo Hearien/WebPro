@@ -1,0 +1,8 @@
+netty第一天
+作用：1.作为RPC通讯框架或协议，实现远程过程调用，基于socket方式
+    2.作为长连接服务器，实现服务器与客户端的长连接
+    3.作为http服务器，采取的编程模型不遵循servlet标准，拥有自己的方式
+
+服务端3步走：1.定义EventLoopGroup类型的bossGroup、workergroup，ServerBootstrap
+        2.通过serverBootstrap.childHandler()指定自己的ChannelInitializer，在其中按顺序添加自己所需的handler
+        3.在自己的handler中复写netty的回调方法

@@ -1,0 +1,149 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<title>test</title>
+</head>
+<body>
+<input type="text" id="ipt" />
+<input type="password" id="psd" />
+<p>â'')--//<>&\/. </p>
+<h1>测试</h1>
+<p>&lt;123</p>
+<p id="p1"></p>
+<p id="p2"></p>
+<script src="jquery3.2.1.min.js"></script>
+<script src="md5.js"></script>
+<script>
+$(document).ready(function(){
+    $("#ipt").bind('input onchange', function(){
+        var txt = $("#ipt").val();
+        console.log(txt);
+        var lastCh = txt.substr(txt.length-1,1);
+        console.log(lastCh);
+        if(lastCh==="<"){
+            txt = txt.substring(0,txt.length-1)+"&lt;";
+        } else if(lastCh===">"){
+            txt = txt.substring(0,txt.length-1)+"&gt;";
+        }
+        $("#ipt").val(txt);
+    });
+
+    $("#psd").bind('input onchange', function(){
+        var txt = $("#psd").val();
+        var pwd = base64encode(txt);
+        console.log(pwd)
+    });
+
+    var s = "& lt;wen";
+    var ss = printStr(s);
+    console.log(ss);
+    $('#p1').html(ss);
+    s = "'\"><marquee/onstart=alert(1)>r";
+    ss = printStr(s);
+    console.log(ss);
+    $('#p2').html(ss);
+});
+
+
+function printStr(str){
+    if (undefined != str)
+    {
+        var lessReg = new RegExp( '<' , "g" );
+        var moreReg = new RegExp( '>' , "g" );
+        return str.toString().replace(lessReg,'& lt;').replace(moreReg,'& gt;');
+    }
+    return "";
+}
+
+var base64EncodeChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/";
+/**
+ * base64编码
+ * @param {Object} str
+ */
+function base64encode(val){
+    var base64hash = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/'
+
+    //把字符串转换为字符数组
+    var strArr = val.split('')
+
+    //装入结果的数组
+    var result = []
+    //每个字符的ascii码
+    var asciiCode
+    //上一个字符的ascii码
+    var prevAsciiCode
+
+    var mod
+    //未填充之前的数组与3的模
+    var preMod = strArr.length % 3
+
+    //使字符数组组成三个一组
+    if(preMod == 1){
+        strArr.push(null)
+        strArr.push(null)
+    }
+    if(preMod == 2) strArr.push(null)
+    //遍历整个数组，寻找每个字符的ascii码
+    for(var index in strArr){
+        if(!strArr[index]){
+            asciiCode = 0
+        }
+        else{
+            asciiCode = strArr[index].charCodeAt()
+        }
+        //位于一组当中的第几个字符
+        mod = index % 3
+        switch(mod){
+            case 0:
+                //往右移2位
+                result.push(base64hash[asciiCode >> 2])
+                break
+            case 1:
+                //上一个ascii码往左移4位与现在的ascii码往右移四位做或操作
+                result.push(base64hash[(prevAsciiCode & 3) << 4 | asciiCode >> 4])
+                break
+            case 2:
+                result.push(base64hash[(prevAsciiCode & 15) << 2 | asciiCode >> 6])
+                result.push(base64hash[asciiCode & 63])
+                break
+        }
+
+        prevAsciiCode = asciiCode
+    }
+
+    //处理异常
+    if(preMod == 1) {
+        result.splice(result.length - 2,2)
+        result.push('==')
+    }
+    else if(preMod == 2) {
+        result.pop()
+        result.push('=')
+    }
+
+    return result.join('')
+}
+
+function _utf8_encode(string) {
+    string = string.replace(/\r\n/g,"\n");
+    var utftext = "";
+    for (var n = 0; n < string.length; n++) {
+        var c = string.charCodeAt(n);
+        if (c < 128) {
+            utftext += String.fromCharCode(c);
+        } else if((c > 127) && (c < 2048)) {
+            utftext += String.fromCharCode((c >> 6) | 192);
+            utftext += String.fromCharCode((c & 63) | 128);
+        } else {
+            utftext += String.fromCharCode((c >> 12) | 224);
+            utftext += String.fromCharCode(((c >> 6) & 63) | 128);
+            utftext += String.fromCharCode((c & 63) | 128);
+        }
+
+    }
+    return utftext;
+}
+
+</script>
+</body>
+</html>

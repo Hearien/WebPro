@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>client</title>
+</head>
+<body>
+
+<script type="text/javascript">
+    var socket;
+    if(window.WebSocket){
+        socket = new WebSocket("ws://localhost:8890/ws");
+        socket.onmessage=function (ev) {
+            var rcvNode = document.getElementById("res");
+            rcvNode.value = rcvNode.value + "\n" +ev.data;
+        }
+
+        socket.onopen=function (ev) {
+            var rcvNode = document.getElementById("res");
+            rcvNode.value = rcvNode.value + "\n" +"连接开启";
+        }
+
+        socket.onclose=function (ev) {
+            var rcvNode = document.getElementById("res");
+            rcvNode.value = rcvNode.value + "\n" +"连接关闭";
+        }
+    }else{
+        alert("浏览器不支持websocket");
+    }
+    
+    function sendMsg(message) {
+        if(!window.WebSocket){
+            return;
+        }
+        if(socket.readyState == WebSocket.OPEN){
+            socket.send(message)
+        } else{
+            alert("连接尚未开启");
+        }
+    }
+</script>
+
+<div>
+    <form onsubmit="return false;">
+        <textarea name="msg" style="width: 400px;height: 200px"></textarea>
+        <input type="button" value="send" onclick="sendMsg(this.form.msg.value);" />
+        <h3>server response</h3>
+        <textarea id="res" style="width: 400px;height: 200px"></textarea>
+        <input type="button" onclick="javascript:document.getElementById('res').value=''" value="clear" />
+    </form>
+</div>
+
+
+<script src="jquery3.2.1.min.js"></script>
+</body>
+</html>
